@@ -1,0 +1,38 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% bootstrap_css %}
+    <title>Tarefas</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-4">Lista de Tarefas</h1>
+        <div class="task-list">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Nova tarefa" id="newTask" aria-label="Nova tarefa"
+                    aria-describedby="addTaskBtn">
+                <button class="btn btn-primary" type="button" id="addTaskBtn">Adicionar</button>
+            </div>
+
+            <ul class="list-group" id="tasks">
+                {% for tarefa in tarefas %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="me-auto"> {{tarefa}} </span>
+                        <span>
+                            <a href="#" class="text-success mx-2 edit-task">Editar</a>
+                            <a href="#" class="text-danger delete-task">Deletar</a>
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% bootstrap_javascript jquery='full' %}
+</body>
+
+</html>

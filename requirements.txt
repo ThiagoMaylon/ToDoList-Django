@@ -1,5 +1,7 @@
 asgiref==3.7.2
-bootstrap4==0.1.0
+beautifulsoup4==4.12.2
 Django==5.0.1
+django-bootstrap4==23.4
+soupsieve==2.5
 sqlparse==0.4.4
 tzdata==2023.4
