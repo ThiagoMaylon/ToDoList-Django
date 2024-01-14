@@ -16,7 +16,7 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Nova tarefa" id="newTask" aria-label="Nova tarefa"
                     aria-describedby="addTaskBtn">
-                <button class="btn btn-primary" type="button" id="addTaskBtn">Adicionar</button>
+                <a href="#" class="btn btn-primary" type="button" id="addTaskBtn">Adicionar</a>
             </div>
 
             <ul class="list-group" id="tasks">
@@ -24,8 +24,12 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span class="me-auto"> {{tarefa}} </span>
                         <span>
-                            <a href="#" class="text-success mx-2 edit-task">Editar</a>
-                            <a href="#" class="text-danger delete-task">Deletar</a>
+                            <form method="post" action="{% url 'delete' pk=tarefa.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger delete-task">
+                                    Deletar
+                                </button>
+                            </form>
                         </span>
                     </li>
                 {% endfor %}
