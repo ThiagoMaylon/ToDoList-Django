@@ -1,42 +1,51 @@
-{% load bootstrap4 %}
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% bootstrap_css %}
-    <title>Tarefas</title>
-</head>
-
-<body>
-    <div class="container">
-        <h1 class="mt-4">Lista de Tarefas</h1>
-        <div class="task-list">
-            <form class="input-group mb-3" method="post" action="{% url 'create' %}">
-                {% csrf_token %}
-                <input type="text" class="form-control" placeholder="Nova tarefa" id="newTask" aria-label="Nova tarefa" id="tarefa" name="tarefa" aria-describedby="addTaskBtn" autocomplete="off" autofocus>
-                <button class="btn btn-primary" type="submit" id="addTaskBtn">Adicionar</button>
-            </form>
-
-            <ul class="list-group" id="tasks">
-                {% for tarefa in tarefas %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="me-auto"> {{tarefa}} </span>
-                        <span>
-                            <form method="post" action="{% url 'delete' pk=tarefa.pk %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger delete-task">
-                                    Deletar
-                                </button>
-                            </form>
-                        </span>
+{% block content %}
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}">Lista de Tarefas</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="{% url 'logout' %}" class="btn btn-outline-danger" id="logoutBtn" >Logout</a>
                     </li>
-                {% endfor %}
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
-    {% bootstrap_javascript jquery='full' %}
-</body>
+    </nav>
+    <h1 class="mt-4">Lista de Tarefas</h1>
+    <div class="task-list">
+        {% if user.is_anonymous %}
+        <div class="alert alert-warning" role="alert">
+            Você não está logado. Por favor, faça o login para acessar a lista de tarefas.
+          </div>
+          <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+        {% else %}
+        <form class="input-group mb-3" method="post" action="{% url 'create' %}">
+            {% csrf_token %}
+            <input type="text" class="form-control" placeholder="Nova tarefa" id="newTask" aria-label="Nova tarefa"
+                id="tarefa" name="tarefa" aria-describedby="addTaskBtn" autocomplete="off" autofocus>
+            <button class="btn btn-primary" type="submit" id="addTaskBtn">Adicionar</button>
+        </form>
 
-</html>
+        <ul class="list-group" id="tasks">
+            {% for tarefa in tarefas %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="me-auto"> {{tarefa}} </span>
+                <span>
+                    <form method="post" action="{% url 'delete' pk=tarefa.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger delete-task">
+                            Deletar
+                        </button>
+                    </form>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+       
+    </div>
+</div>
+{% endblock %}
