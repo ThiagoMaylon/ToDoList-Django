@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'core',
+    'usuarios',
     'bootstrap4'
 ]
 
@@ -114,8 +115,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTH_MODEL_USER = 'usuarios.CustomUsuario'
-
-LOGIN_REDIRECT = 'index'
-LOGOUT_REDIRECT = 'login'

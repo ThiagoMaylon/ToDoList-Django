@@ -8,7 +8,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="{% url 'logout' %}" class="btn btn-outline-danger" id="logoutBtn" >Logout</a>
+                        <a href="{% url 'logout' %}" class="btn btn-outline-danger" id="logoutBtn">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -16,12 +16,7 @@
     </nav>
     <h1 class="mt-4">Lista de Tarefas</h1>
     <div class="task-list">
-        {% if user.is_anonymous %}
-        <div class="alert alert-warning" role="alert">
-            Você não está logado. Por favor, faça o login para acessar a lista de tarefas.
-          </div>
-          <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
-        {% else %}
+
         <form class="input-group mb-3" method="post" action="{% url 'create' %}">
             {% csrf_token %}
             <input type="text" class="form-control" placeholder="Nova tarefa" id="newTask" aria-label="Nova tarefa"
@@ -44,8 +39,8 @@
             </li>
             {% endfor %}
         </ul>
-        {% endif %}
-       
+
+
     </div>
 </div>
 {% endblock %}
